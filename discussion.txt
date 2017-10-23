@@ -1,0 +1,6 @@
+For millions users to use our game at the same time, we need several changes:
+1. Change database backend from sqlite3 to MySQL or AWS RDBMS(distributed version of SQL database) to handle more data
+2. Using a load balancer to handle balancing. We can redirect user's request to its target backend based on the hash on
+ user's id. The load balancer also need to generate global unique GameID.
+3. Deploy django app on Apache/nginx server for production environment.
+4. We could even integrate app to docker container so that we can doing auto scaling on cloud easier.

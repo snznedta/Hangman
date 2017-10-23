@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/hangman.css">
+    <title>Welcome to Hangman Game</title>
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <a class="navbar-brand col-md-2" href="/hangman/game">Start New Game</a>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-3"></div>
+        {#        <a class="navbar-brand col-md-3" href="/hangman/login" align="right">Change Account</a>#}
+        <a class="navbar-brand col-md-1" href="/hangman/logout" align="right">Logout</a>
+
+
+    </div>
+</nav>
+<div class="image">
+    <img src="{{ game.image }}">
+</div>
+<br>
+<br>
+
+{% if game.display %}
+
+    <h1 id="display"> {{ game.display }}</h1>
+
+{% endif %}
+
+<form action="/hangman/game" id="letters" method="POST">
+
+    <div>
+        <input type="hidden" name="game_id" value="{{ game.game_id }}"/>
+        <button class="btn btn-default" type="submit" name="letter" value="a">a</button>
+        <button class="btn btn-default" type="submit" name="letter" value="b">b</button>
+        <button class="btn btn-default" type="submit" name="letter" value="c">c</button>
+        <button class="btn btn-default" type="submit" name="letter" value="d">d</button>
+        <button class="btn btn-default" type="submit" name="letter" value="e">e</button>
+        <button class="btn btn-default" type="submit" name="letter" value="f">f</button>
+        <button class="btn btn-default" type="submit" name="letter" value="g">g</button>
+        <button class="btn btn-default" type="submit" name="letter" value="h">h</button>
+        <button class="btn btn-default" type="submit" name="letter" value="i">i</button>
+        <button class="btn btn-default" type="submit" name="letter" value="j">j</button>
+        <button class="btn btn-default" type="submit" name="letter" value="k">k</button>
+        <button class="btn btn-default" type="submit" name="letter" value="l">l</button>
+        <button class="btn btn-default" type="submit" name="letter" value="m">m</button>
+    </div>
+    <br>
+
+    <div>
+        <button class="btn btn-default" type="submit" name="letter" value="n">n</button>
+        <button class="btn btn-default" type="submit" name="letter" value="o">o</button>
+        <button class="btn btn-default" type="submit" name="letter" value="p">p</button>
+        <button class="btn btn-default" type="submit" name="letter" value="q">q</button>
+        <button class="btn btn-default" type="submit" name="letter" value="r">r</button>
+        <button class="btn btn-default" type="submit" name="letter" value="s">s</button>
+        <button class="btn btn-default" type="submit" name="letter" value="t">t</button>
+        <button class="btn btn-default" type="submit" name="letter" value="u">u</button>
+        <button class="btn btn-default" type="submit" name="letter" value="v">v</button>
+        <button class="btn btn-default" type="submit" name="letter" value="w">w</button>
+        <button class="btn btn-default" type="submit" name="letter" value="x">x</button>
+        <button class="btn btn-default" type="submit" name="letter" value="y">y</button>
+        <button class="btn btn-default" type="submit" name="letter" value="z">z</button>
+    </div>
+    {% csrf_token %}
+
+</form>
+<br>
+<div id="guessed">
+    <h style="font-size: 2em"> Guessed letter:</h>
+    {% for letter in guessed %}
+        <button class="btn btn-primary">{{ letter }}</button>
+    {% endfor %}
+
+</div>
+<br>
+{% if game.status == 'win' %}
+    <div class="col-md-3"></div>
+    <div class="alert alert-success col-md-6" id="result">
+        <strong>You win!</strong> The answer is <strong>"{{ game.answer }}"</strong>.
+    </div>
+    <div class="col-md-3"></div>
+
+{% elif game.status == 'lose' %}
+    <div class="col-md-3"></div>
+    <div class="alert alert-danger col-md-6" id="result">
+        <strong>You lose!</strong> The answer is <strong>"{{ game.answer }}"</strong>.
+    </div>
+    <div class="col-md-3"></div>
+
+{% endif %}
+
+</body>
